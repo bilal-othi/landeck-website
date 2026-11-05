@@ -1,24 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- LanDeck's app icon, flat (the app's AppIcon.icon has the same layers with Liquid Glass). -->
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#22d3ee"/>
-      <stop offset="0.55" stop-color="#6366f1"/>
-      <stop offset="1" stop-color="#a855f7"/>
+    <linearGradient id="fill" gradientUnits="userSpaceOnUse" x1="256" y1="0" x2="768" y2="1024">
+      <stop offset="0" stop-color="#2fd1ee"/>
+      <stop offset="1" stop-color="#6c5cf1"/>
     </linearGradient>
-    <radialGradient id="s" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#fff" stop-opacity=".35"/>
-      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
-    </radialGradient>
+    <linearGradient id="trail" gradientUnits="userSpaceOnUse" x1="512" y1="0" x2="834" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.35" stop-color="#fff" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.66"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.18"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="15" fill="url(#g)"/>
-  <path d="M32 32 L32 12 A20 20 0 0 1 49.3 22 Z" fill="url(#s)"/>
+  <rect width="1024" height="1024" rx="230" fill="url(#fill)"/>
+  <rect width="1024" height="1024" rx="230" fill="url(#sheen)"/>
   <g fill="none" stroke="#fff" stroke-linecap="round">
-    <circle cx="32" cy="32" r="20" stroke-opacity=".3" stroke-width="2.4"/>
-    <circle cx="32" cy="32" r="11" stroke-opacity=".5" stroke-width="2.4"/>
-    <path d="M32 32 L49.3 22" stroke-width="3"/>
+    <circle cx="512" cy="512" r="372" stroke-width="20" stroke-opacity="0.32"/>
+    <circle cx="512" cy="512" r="252" stroke-width="20" stroke-opacity="0.46"/>
+    <circle cx="512" cy="512" r="134" stroke-width="20" stroke-opacity="0.6"/>
   </g>
-  <circle cx="32" cy="32" r="3.6" fill="#fff"/>
-  <circle cx="45.5" cy="40" r="3.2" fill="#fff"/>
-  <circle cx="20.5" cy="23" r="2.6" fill="#fff" fill-opacity=".85"/>
-  <circle cx="23" cy="45" r="2.4" fill="#fff" fill-opacity=".7"/>
+  <path d="M512 512 L512 140 A372 372 0 0 1 834.2 326 Z" fill="url(#trail)"/>
+  <path d="M512 512 L834.2 326" stroke="#fff" stroke-width="30" stroke-linecap="round"/>
+  <circle cx="755" cy="447" r="66" fill="none" stroke="#fff" stroke-width="16" stroke-opacity="0.55"/>
+  <circle cx="755" cy="447" r="40" fill="#fff"/>
+  <circle cx="300" cy="390" r="32" fill="#fff" fill-opacity="0.88"/>
+  <circle cx="392" cy="842" r="30" fill="#fff" fill-opacity="0.8"/>
+  <circle cx="690" cy="760" r="26" fill="#fff" fill-opacity="0.72"/>
+  <circle cx="512" cy="512" r="52" fill="#fff"/>
 </svg>

@@ -3,7 +3,7 @@ import Prose from '../layouts/Prose.astro';
 import { site } from '../site';
 ---
 
-<Prose title="Privacy Policy" description="LanDeck doesn't collect, store or share any personal data. What it learns about your network stays on your Mac." updated="5 November 2026">
+<Prose title="Privacy Policy" description="LanDeck doesn't collect, store or share any personal data. What it learns about your network stays on your Mac." updated="6 November 2026">
   <p class="intro">
     <strong>LanDeck does not collect, store or share any personal data.</strong> What it learns about your network stays
     on your Mac. This applies to both editions: the Mac App Store version and the direct download.
@@ -40,6 +40,11 @@ import { site } from '../site';
       deletes it.
     </li>
     <li>
+      <strong>Speed tests and the outage log.</strong> Your speed test results, and the outage log (when the internet
+      was down, for how long and why), are kept on your Mac with the history. Clear History deletes the outage log; Clear
+      History under Speed deletes the speed tests.
+    </li>
+    <li>
       <strong>Settings</strong> are kept in LanDeck’s preferences on your Mac.
     </li>
     <li>
@@ -60,7 +65,20 @@ import { site } from '../site';
       Cloudflare (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) and closes it at once, loads Apple’s test page
       (<code>captive.apple.com</code>), the one Macs use to spot Wi‑Fi sign-in pages, and asks your network’s DNS server
       for <code>apple.com</code>. Those services see these requests as they would any website visit; nothing about your
-      network or its devices is sent. LanDeck never checks in the background.
+      network or its devices is sent. It doesn’t check in the background unless you turn on the outage log (below).
+    </li>
+    <li>
+      <strong>Speed test.</strong> When you click Test Speed, LanDeck runs macOS’s own speed test tool
+      (<code>networkQuality</code>), which downloads and uploads test data with Apple’s servers: from about 100 MB to
+      over 1 GB, depending on your connection’s speed. See
+      <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.
+    </li>
+    <li>
+      <strong>Outage log (LanDeck Pro, off unless you turn it on).</strong> While it’s on and LanDeck is open, LanDeck
+      checks once a minute that the internet answers: it opens and closes a connection to Cloudflare
+      (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) and asks your network’s DNS server for
+      <code>apple.com</code>. When one fails, it runs the internet check above to find out why. Nothing else is sent.
+      Turn it off in Settings › Monitoring.
     </li>
     <li>
       <strong>Your public address.</strong> In Tools › Connection, Look Up asks Cloudflare

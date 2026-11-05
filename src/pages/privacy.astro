@@ -55,6 +55,14 @@ import { site } from '../site';
   <p>LanDeck only connects to something outside your network when you ask it to:</p>
   <ul>
     <li>
+      <strong>Internet check.</strong> When you open Internet in the sidebar, click Check Now, or open the menu bar
+      panel (Settings › General can turn that off), LanDeck checks whether your internet works. It opens a connection to
+      Cloudflare (<code>1.1.1.1</code>) and Google (<code>8.8.8.8</code>) and closes it at once, loads Apple’s test page
+      (<code>captive.apple.com</code>), the one Macs use to spot Wi‑Fi sign-in pages, and asks your network’s DNS server
+      for <code>apple.com</code>. Those services see these requests as they would any website visit; nothing about your
+      network or its devices is sent. LanDeck never checks in the background.
+    </li>
+    <li>
       <strong>Your public address.</strong> In Tools › Connection, Look Up asks Cloudflare
       (<code>1.1.1.1/cdn-cgi/trace</code>) for the internet address your network uses, and its country. Cloudflare sees
       that request, as it would any website visit; see

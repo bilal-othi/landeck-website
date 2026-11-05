@@ -1,0 +1,25 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  updated?: string;
+}
+
+const { title, description, updated } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <div class="prose-page">
+    <div class="sky" aria-hidden="true">
+      <div class="blob blob-1" style="opacity: .35"></div>
+      <div class="blob blob-2" style="opacity: .3"></div>
+    </div>
+    <article class="container prose" style="position: relative">
+      <h1>{title}</h1>
+      {updated && <p class="updated">Last updated: {updated}</p>}
+      <slot />
+    </article>
+  </div>
+</Base>

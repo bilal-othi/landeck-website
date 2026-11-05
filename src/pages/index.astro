@@ -1,0 +1,681 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Note from '../components/Note.astro';
+import Shot from '../components/Shot.astro';
+import { site, url } from '../site';
+
+// Devices on the radar: where they sit (percent from the centre) and what they are. Each lights up as the sweep,
+// which starts at twelve o'clock and turns clockwise, passes its angle.
+const period = 5;
+const blips = [
+  { label: 'Router', icon: 'router', x: 4, y: -36 },
+  { label: 'MacBook Pro', icon: 'computer', x: 30, y: -20 },
+  { label: 'Living room TV', icon: 'tv', x: 37, y: 12 },
+  { label: 'Front door camera', icon: 'camera', x: 18, y: 34 },
+  { label: 'Xbox', icon: 'gamepad', x: -12, y: 37 },
+  { label: 'Hue Bridge', icon: 'bulb', x: -34, y: 18 },
+  { label: 'NAS', icon: 'storage', x: -38, y: -10 },
+  { label: 'Family iPhone', icon: 'phone', x: -20, y: -30 },
+  { label: 'HomePod', icon: 'speaker', x: 12, y: 8 },
+  { label: 'Printer', icon: 'printer', x: -14, y: -4 },
+].map((blip) => {
+  const angle = (Math.atan2(blip.x, -blip.y) * 180) / Math.PI;
+  const delay = (((angle + 360) % 360) / 360) * period;
+  return { ...blip, delay: `${delay.toFixed(2)}s` };
+});
+
+const kinds = [
+  ['computer', 'Macs and PCs'],
+  ['phone', 'Phones and tablets'],
+  ['tv', 'TVs and streamers'],
+  ['speaker', 'Speakers'],
+  ['printer', 'Printers'],
+  ['camera', 'Cameras and doorbells'],
+  ['bulb', 'Smart home'],
+  ['gamepad', 'Game consoles'],
+  ['storage', 'NAS and storage'],
+  ['router', 'Routers and access points'],
+] as const;
+
+const comingSoon = 'Coming soon';
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="sky" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="grid-lines"></div>
+    </div>
+    <div class="container">
+      <div class="rise">
+        <span class="eyebrow"><span class="pill">New</span> A network scanner made for the Mac</span>
+      </div>
+      <h1 class="rise" style="--delay: .08s">
+        Know <span class="gradient-text">every device</span> on your network.
+      </h1>
+      <p class="lede rise" style="--delay: .16s">
+        LanDeck finds everything on your Wi‑Fi and Ethernet in seconds: phones, TVs, cameras, smart plugs. It tells you what
+        each one is, and warns you when something new or risky turns up. Nothing ever leaves your Mac.
+      </p>
+      <div class="hero-actions rise" style="--delay: .24s">
+        <a class="button button-primary" href={site.appStoreUrl ?? url('#download')} aria-disabled={site.appStoreUrl ? undefined : 'true'}>
+          <Icon name="bag" class="icon-20" />
+          <span class="button-text"><small>{site.appStoreUrl ? 'Download on the' : comingSoon}</small>Mac App Store</span>
+        </a>
+        <a class="button" href={url('#features')}>
+          Take the tour <Icon name="arrowDown" />
+        </a>
+      </div>
+      <p class="hero-note rise" style="--delay: .3s">Free to use · {site.requirements} · Apple silicon and Intel</p>
+
+      <div class="hero-stage rise rise-zoom" style="--delay: .4s">
+        <div class="float-note n1">
+          <Note title="New device on Home" body="Espressif device · 192.168.1.77 · Espressif" actions={['Mark as Known', 'Name It…']} />
+        </div>
+        <div class="float-note n2">
+          <Note title="NAS is offline" body="Last seen on Home 5 minutes ago · 192.168.1.10" time="2m ago" />
+        </div>
+        <div class="float-note n3">
+          <Note title="Telnet is open on Front door camera" body="Fix soon: Telnet sends passwords as plain text." time="9:41" />
+        </div>
+        <div class="hero-window">
+          <div class="frame">
+            <Shot name="devices" alt="LanDeck's main window: the devices on a home network, with the details of the living room TV" eager />
+            <div class="beam-track" aria-hidden="true"><div class="scan-beam"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Numbers -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat" data-reveal>
+          <strong><span data-count="7">0</span> s</strong>
+          <span>to scan a home network</span>
+        </div>
+        <div class="stat" data-reveal style="--delay: .08s">
+          <strong><span data-count="8">0</span></strong>
+          <span>ways to find devices</span>
+        </div>
+        <div class="stat" data-reveal style="--delay: .16s">
+          <strong><span data-count="39892">0</span></strong>
+          <span>device makers it recognises</span>
+        </div>
+        <div class="stat" data-reveal style="--delay: .24s">
+          <strong><span data-count="0">0</span> bytes</strong>
+          <span>about your network sent to us</span>
+        </div>
+      </div>
+      <div class="marquee" aria-label="Kinds of devices LanDeck recognises">
+        <div class="marquee-track">
+          {
+            [...kinds, ...kinds].map(([icon, label], index) => (
+              <span class="chip" aria-hidden={index >= kinds.length ? 'true' : undefined}>
+                <Icon name={icon} />
+                {label}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it finds devices -->
+  <section class="section" id="discovery">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Discovery</span>
+        <h2>It finds the devices other scanners miss.</h2>
+        <p>
+          Devices hide in different ways: some ignore pings, some only announce themselves, some only answer by name.
+          LanDeck asks eight ways at once, then puts what it learns together into one device.
+        </p>
+      </div>
+      <div class="radar-layout">
+        <div class="radar" style={`--period: ${period}s`} data-reveal="zoom" role="img" aria-label="A radar finding the devices on a home network">
+          <div class="radar-sweep"></div>
+          {
+            blips.map((blip) => (
+              <div class="blip" style={`--x: ${blip.x}; --y: ${blip.y}; --delay: ${blip.delay}`}>
+                <span class="blip-dot">
+                  <Icon name={blip.icon as any} />
+                </span>
+                <span class="blip-label">{blip.label}</span>
+              </div>
+            ))
+          }
+          <div class="radar-center"><img src={url('favicon.svg')} alt="" width="40" height="40" /></div>
+        </div>
+        <div class="techniques">
+          <div class="technique" data-reveal="right">
+            <span class="icon"><Icon name="wifi" /></span>
+            <div>
+              <h3>Every address, swept</h3>
+              <p>A quick touch on every address in your network, then the Mac’s own address table (ARP): even devices that ignore everything else show up with their hardware address.</p>
+            </div>
+          </div>
+          <div class="technique" data-reveal="right" style="--delay: .06s">
+            <span class="icon"><Icon name="broadcast" /></span>
+            <div>
+              <h3>Bonjour and UPnP</h3>
+              <p>What devices say about themselves: AirPlay, printers, HomeKit, file sharing, smart TVs and media servers, with their real model names.</p>
+            </div>
+          </div>
+          <div class="technique" data-reveal="right" style="--delay: .12s">
+            <span class="icon"><Icon name="search" /></span>
+            <div>
+              <h3>Names from everywhere</h3>
+              <p>Reverse DNS, NetBIOS for Windows PCs and SNMP for printers and network gear, so devices get names, not just numbers.</p>
+            </div>
+          </div>
+          <div class="technique" data-reveal="right" style="--delay: .18s">
+            <span class="icon"><Icon name="pulse" /></span>
+            <div>
+              <h3>Ping, ports and IPv6</h3>
+              <p>Latency for every device, ten common ports checked on each one, and IPv6 addresses matched to the devices that use them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The tour: free features -->
+  <section class="section" id="features" style="padding-top: 40px">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="kicker">The tour</span>
+        <h2>Everything about every device. Free.</h2>
+        <p>Scanning, every detail, names and notes, quick actions, Wake-on-LAN and the network tools are free, for good.</p>
+      </div>
+      <div class="switch-row" data-reveal>
+        <span>Screenshots in</span>
+        <div class="appearance-switch" role="group" aria-label="Screenshot appearance">
+          <button type="button" data-shots-choice="dark" aria-pressed="true">Dark</button>
+          <button type="button" data-shots-choice="light" aria-pressed="false">Light</button>
+        </div>
+      </div>
+
+      <!-- Devices list -->
+      <div class="feature">
+        <div class="feature-copy" data-reveal="left">
+          <span class="feature-tag"><Icon name="radar" class="icon-16" /> Scan</span>
+          <h3>Your whole network, in about 7 seconds.</h3>
+          <p>
+            Open LanDeck and it scans. Every device appears as it’s found, with its name, maker, type and how fast it answers.
+            New devices are marked, and those it knew before but can’t see now are shown as offline instead of vanishing.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Scans by itself</strong> when it opens and whenever your Mac joins another network.</li>
+            <li><strong>Knows what things are:</strong> a TV, a printer or a game console, from the maker, the services and the model. Change any type you like.</li>
+            <li><strong>Big networks too:</strong> on a network larger than a home one, Scan All sweeps up to 65,534 addresses, with devices appearing as it goes.</li>
+            <li><strong>Search, sort and filter</strong> by name, address, maker, type or status, and group by type or your own tags.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="devices" alt="LanDeck listing thirteen devices with their address, maker, type and latency" />
+        </div>
+      </div>
+
+      <!-- Inspector -->
+      <div class="feature flip">
+        <div class="feature-copy" data-reveal="right">
+          <span class="feature-tag"><Icon name="eye" class="icon-16" /> Details</span>
+          <h3>Everything about a device, and one click to use it.</h3>
+          <p>
+            Select a device and the inspector shows all LanDeck knows: addresses, hardware address and maker, model,
+            host names, the services it offers and the ports that are open. Then use it straight away.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Open its web page, SSH, Screen Sharing or its shared files</strong> in one click. SSH opens in Terminal or iTerm2, your choice.</li>
+            <li><strong>Wake-on-LAN:</strong> wake a sleeping computer, NAS or console, even when it’s offline.</li>
+            <li><strong>Your names, notes and tags,</strong> such as “Mum’s iPad” or “Ink is in the hall cupboard”. They stay when the device leaves and comes back.</li>
+            <li><strong>Favourites,</strong> Copy Details for a support ticket, and Copy MAC Address.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="inspector" alt="The inspector for a Raspberry Pi with Open, SSH, Wake and Copy buttons, its details, services and a security finding" />
+        </div>
+      </div>
+
+      <!-- Views -->
+      <div class="feature wide" data-tabs="5000">
+        <div class="feature-copy" data-reveal>
+          <span class="feature-tag"><Icon name="grid" class="icon-16" /> Three views</span>
+          <h3>A list, cards or a timeline.</h3>
+          <p>
+            The list for detail, cards to see the whole house at a glance, and the timeline to see who was online
+            when, over a day, a week or a month.
+          </p>
+          <div class="tabs" role="tablist" aria-label="Views" style="margin-top: 28px">
+            <button class="tab" type="button" role="tab" aria-selected="true">List</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Cards</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Timeline · Pro</button>
+          </div>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="devices" alt="The list view" /></div>
+          <div class="tab-panel"><Shot name="cards" alt="The cards view: a card for each device with its icon, address and status" /></div>
+          <div class="tab-panel"><Shot name="timeline" alt="The timeline: a strip for each device showing when it was online over 24 hours" /></div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="feature" id="tools" data-tabs="6000">
+        <div class="feature-copy" data-reveal="left">
+          <span class="feature-tag"><Icon name="terminal" class="icon-16" /> Network tools</span>
+          <h3>The tools you’d open Terminal for. Built in.</h3>
+          <p>Start any tool from a device, and it already knows the address.</p>
+          <div class="tabs" role="tablist" aria-label="Tools" style="margin-top: 24px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Ping</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">DNS Lookup</button>
+          </div>
+          <ul class="feature-list">
+            <li><strong>Ping</strong> once a second with a live chart, loss, and the minimum, average and maximum.</li>
+            <li><strong>Traceroute</strong> up to 30 hops, with each router’s name.</li>
+            <li><strong>DNS Lookup</strong> for A, AAAA, CNAME, MX, TXT, NS, SOA, PTR and SRV records, against any DNS server.</li>
+            <li><strong>Port Scan:</strong> the 100 common ports, 1 to 1024, all 65,535 or your own list, with a warning on risky ones.</li>
+            <li><strong>Connection:</strong> your Mac’s address, router, DNS, Wi‑Fi signal, noise, channel, band and speed, and your public address when you ask.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="ping" alt="The Ping tool: a live latency chart and a list of round trips" /></div>
+          <div class="tab-panel"><Shot name="dns" alt="The DNS Lookup tool showing the answer for apple.com" /></div>
+        </div>
+      </div>
+
+      <!-- Menu bar -->
+      <div class="feature flip">
+        <div class="feature-copy" data-reveal="right">
+          <span class="feature-tag"><Icon name="menubar" class="icon-16" /> Menu bar</span>
+          <h3>Your network, one click away.</h3>
+          <p>
+            LanDeck lives in the menu bar too. A glance shows how many devices are online and how many are new; a click
+            shows them, without opening the window.
+          </p>
+          <ul class="feature-list">
+            <li><strong>New devices</strong> with a Known button, so you approve them in a second.</li>
+            <li><strong>Your watchlist and favourites</strong> with their latency, and Wake for those that sleep.</li>
+            <li><strong>Scan Now</strong> from anywhere, and the new-device count next to the icon.</li>
+          </ul>
+        </div>
+        <div class="menubar-demo">
+          <div class="menubar-strip" aria-hidden="true">
+            <span>Wi‑Fi</span><span>100%</span>
+            <span class="ld"><img src={url('favicon.svg')} alt="" width="15" height="15" /> 1</span>
+            <span>Thu 9:41</span>
+          </div>
+          <div class="menubar-panel">
+            <Shot name="menubar" class="small" alt="The menu bar panel: new devices, the watchlist and favourites" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pro -->
+  <section class="section pro-band" id="pro">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="pro-badge"><Icon name="sparkles" class="icon-16" /> LanDeck Pro</span>
+        <h2 style="margin-top: 22px">It keeps watch, so you don’t have to.</h2>
+        <p>
+          Pro scans in the background, tells you when something changes, remembers every network and its history, and
+          checks your network for security problems.
+        </p>
+      </div>
+
+      <!-- Monitoring -->
+      <div class="feature">
+        <div class="feature-copy" data-reveal="left">
+          <span class="feature-tag pro"><Icon name="bell" class="icon-16" /> Monitoring</span>
+          <h3>Know the moment a new device joins.</h3>
+          <p>
+            LanDeck scans every 1 to 15 minutes while it’s open and sends a notification when a device it has never seen
+            joins your network. Approve it or name it right there.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Mark as Known or Name It…</strong> from the notification itself.</li>
+            <li><strong>No false alarms:</strong> a device that was asleep isn’t new, and a phone that changed its private address is recognised.</li>
+            <li><strong>Easy on battery:</strong> scans half as often on battery and pause in Low Power Mode. Open at Login keeps it running.</li>
+          </ul>
+        </div>
+        <div data-reveal="zoom">
+          <div class="note-stack" style="max-width: 420px; margin: 0 auto 26px">
+            <Note title="New device on Home" body="Espressif device · 192.168.1.77 · Espressif" actions={['Mark as Known', 'Name It…']} />
+            <Note title="4 new devices on Office" body="Galaxy S24, Dell XPS, Canon printer, Espressif device" time="1m ago" />
+          </div>
+          <div class="shot-wrap">
+            <Shot name="settings" class="small" alt="Settings › Monitoring: scan in the background every 5 minutes, and the notifications to send" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Watchlist -->
+      <div class="feature flip">
+        <div class="feature-copy" data-reveal="right">
+          <span class="feature-tag pro"><Icon name="eye" class="icon-16" /> Watchlist</span>
+          <h3>Hear about it when the NAS goes down.</h3>
+          <p>
+            Watch the devices that matter: the NAS, the printer, the camera, the Raspberry Pi. LanDeck tells you when
+            one goes offline, and again when it’s back.
+          </p>
+          <ul class="feature-list">
+            <li><strong>A grace period you choose</strong> (1 minute to an hour), and a second check, so a phone dozing for a moment isn’t reported.</li>
+            <li><strong>One alert per outage,</strong> even across restarts; “back online” replaces “offline”.</li>
+            <li><strong>Watched devices</strong> in the sidebar and the menu bar, offline ones first.</li>
+          </ul>
+          <div class="note-stack" style="margin-top: 28px; max-width: 400px">
+            <Note title="NAS is offline" body="Last seen on Home 5 minutes ago · 192.168.1.10" time="2m ago" />
+            <Note title="NAS is back online" body="Offline for 42 minutes · 192.168.1.10" />
+          </div>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="watchlist" alt="The watchlist: four watched devices, the NAS offline" />
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="feature wide" data-tabs="6000">
+        <div class="feature-copy" data-reveal>
+          <span class="feature-tag pro"><Icon name="history" class="icon-16" /> History</span>
+          <h3>What happened while you weren’t looking.</h3>
+          <p>
+            Every scan is kept, for 30, 60 or 90 days, on your Mac. See when each device was online and how fast it
+            answered, and everything that changed since an hour, a day, a week or a month ago.
+          </p>
+          <div class="tabs" role="tablist" aria-label="History" style="margin-top: 28px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Changes</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Timeline</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Device history</button>
+          </div>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="changes" alt="Changes: new devices, gone devices, new addresses and new open ports" /></div>
+          <div class="tab-panel"><Shot name="timeline" alt="The timeline of every device over 24 hours" /></div>
+          <div class="tab-panel"><Shot name="devices" alt="A device's presence and latency over 24 hours in the inspector" /></div>
+        </div>
+      </div>
+
+      <!-- Networks -->
+      <div class="feature">
+        <div class="feature-copy" data-reveal="left">
+          <span class="feature-tag pro"><Icon name="layers" class="icon-16" /> Network profiles</span>
+          <h3>Home, office, the family house. Each remembered.</h3>
+          <p>
+            LanDeck recognises each network by its router, and keeps its devices, your names and its history apart. Look
+            at another network any time, as LanDeck last saw it.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Give networks names</strong> such as “Office” instead of 192.168.18.0/24.</li>
+            <li><strong>Your names come back</strong> when your laptop does: every device keeps its name and history per network.</li>
+            <li><strong>Forget a network</strong> you won’t visit again, with its devices and history.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="networks" alt="The Family house network as LanDeck last saw it, with its six devices" />
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div id="security" style="scroll-margin-top: 80px"></div>
+      <div class="feature wide" data-tabs="7000">
+        <div class="feature-copy" data-reveal>
+          <span class="feature-tag pro"><Icon name="shield" class="icon-16" /> Security check</span>
+          <h3>Find the open doors before someone else does.</h3>
+          <p>
+            Every scan checks each device for risky services, and your router for ports it has opened to the internet.
+            Each finding says, in plain words, what it means and what to do.
+          </p>
+          <div class="tabs" role="tablist" aria-label="Security" style="margin-top: 28px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Findings</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Router impostor</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Address conflict</button>
+          </div>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="security" alt="Security: Telnet open on a camera, old file sharing on the NAS, SSH open to the internet on a Raspberry Pi" /></div>
+          <div class="tab-panel"><Shot name="gateway" alt="Security: another device is answering for the router, a sign of ARP spoofing" /></div>
+          <div class="tab-panel"><Shot name="conflict" alt="Security: two devices are using the same address" /></div>
+        </div>
+      </div>
+      <div class="severity-grid">
+        <div class="severity high" data-reveal>
+          <h4>Fix soon</h4>
+          <ul>
+            <li>Telnet open, or old SMB 1 file sharing</li>
+            <li>Screen sharing without a password</li>
+            <li>A risky service (SSH, Remote Desktop, file sharing…) open to the internet</li>
+            <li>Another device answering for your router</li>
+          </ul>
+        </div>
+        <div class="severity medium" data-reveal style="--delay: .08s">
+          <h4>Worth a look</h4>
+          <ul>
+            <li>FTP or Remote Desktop open</li>
+            <li>Any port your router opened to the internet</li>
+            <li>The router’s hardware address changed</li>
+            <li>Two devices using one address</li>
+            <li>An expired certificate on a device’s web page</li>
+          </ul>
+        </div>
+        <div class="severity low" data-reveal style="--delay: .16s">
+          <h4>Good to know</h4>
+          <ul>
+            <li>A router that lets devices open ports themselves (UPnP)</li>
+            <li>The router’s settings page over plain http</li>
+            <li>Self-signed or soon-expiring certificates</li>
+            <li>Screen sharing protected only by the old VNC password</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Weekly summary -->
+      <div class="feature flip" style="margin-top: 130px">
+        <div class="feature-copy" data-reveal="right">
+          <span class="feature-tag pro"><Icon name="calendar" class="icon-16" /> Weekly summary</span>
+          <h3>Your week, on Monday morning.</h3>
+          <p>
+            Every Monday, one notification sums up the week on your network. Click it for the full report: new and gone
+            devices, how long watched devices were offline, new open ports, and what to fix.
+          </p>
+          <ul class="feature-list">
+            <li><strong>This Week</strong> in the sidebar, any time.</li>
+            <li><strong>One line that matters:</strong> “1 new device · 3 to fix soon · NAS offline 3 h”.</li>
+          </ul>
+          <div class="note-stack" style="margin-top: 28px; max-width: 420px">
+            <Note title="This week on Home" body="1 new device · 3 to fix soon · Living room TV offline 1d 18h" time="Mon 9:00" />
+          </div>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="summary" alt="This Week: one new device, three to fix soon, and the watched devices that were offline" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="section" id="privacy">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <div class="shield"><Icon name="shield" /></div>
+        <span class="kicker">Privacy</span>
+        <h2>Your network stays yours.</h2>
+        <p>
+          LanDeck learns a lot about the devices around you. All of it stays on your Mac. There’s no account, no cloud
+          and nothing sent to us.
+        </p>
+      </div>
+      <div class="privacy-grid">
+        <div class="card" data-reveal>
+          <span class="icon"><Icon name="cloudOff" /></span>
+          <h3>No cloud</h3>
+          <p>Devices, names, history and settings are kept on your Mac, and nowhere else.</p>
+        </div>
+        <div class="card" data-reveal style="--delay: .06s">
+          <span class="icon"><Icon name="person" /></span>
+          <h3>No account</h3>
+          <p>Nothing to sign up for. Open it and it works.</p>
+        </div>
+        <div class="card" data-reveal style="--delay: .12s">
+          <span class="icon"><Icon name="database" /></span>
+          <h3>Built-in maker list</h3>
+          <p>Device makers are looked up in a list inside the app, not online.</p>
+        </div>
+        <div class="card" data-reveal style="--delay: .18s">
+          <span class="icon"><Icon name="lock" /></span>
+          <h3>No tracking</h3>
+          <p>No analytics, no ads. Not in the app, not on this website.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans and editions -->
+  <section class="section" id="download">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Get LanDeck</span>
+        <h2>Free to use. Pro when you want it to keep watch.</h2>
+        <p>Everything you need to see and use your network is free, for good. Pro adds monitoring, history and security.</p>
+      </div>
+      <div class="plans">
+        <div class="plan" data-reveal>
+          <h3>LanDeck</h3>
+          <p class="price">Free</p>
+          <ul>
+            <li><strong>Scanning</strong> with eight discovery methods, IPv6 and large networks</li>
+            <li><strong>Every device detail,</strong> your names, notes and tags</li>
+            <li><strong>Quick actions</strong> and Wake-on-LAN</li>
+            <li><strong>Ping, Traceroute, DNS Lookup, Port Scan</strong> and Connection</li>
+            <li><strong>The menu bar item</strong> with new devices and favourites</li>
+          </ul>
+        </div>
+        <div class="plan featured" data-reveal style="--delay: .08s">
+          <h3>LanDeck Pro</h3>
+          <p class="price">{site.proPrice ?? 'A subscription in the Mac App Store. Prices at launch.'}</p>
+          <ul>
+            <li><strong>Everything in LanDeck,</strong> plus:</li>
+            <li><strong>Background monitoring</strong> and new-device alerts</li>
+            <li><strong>Watchlist</strong> with offline and back-online alerts</li>
+            <li><strong>History,</strong> Changes and the Timeline view</li>
+            <li><strong>Network profiles</strong> for every network you use</li>
+            <li><strong>Security check</strong> with alerts, and the weekly summary</li>
+          </ul>
+        </div>
+      </div>
+      <div class="editions">
+        <div class="edition" data-reveal>
+          <h3>Mac App Store</h3>
+          <p>Sandboxed by Apple, updated by the App Store, and the only edition with LanDeck Pro.</p>
+          <a class="button button-primary" href={site.appStoreUrl ?? '#download'} aria-disabled={site.appStoreUrl ? undefined : 'true'}>
+            <Icon name="bag" />
+            <span class="button-text"><small>{site.appStoreUrl ? 'Download on the' : comingSoon}</small>Mac App Store</span>
+          </a>
+        </div>
+        <div class="edition" data-reveal style="--delay: .08s">
+          <h3>Direct download</h3>
+          <p>A notarized download from this website with every free feature. LanDeck Pro comes with the App Store edition.</p>
+          <a class="button" href={site.downloadUrl ?? '#download'} aria-disabled={site.downloadUrl ? undefined : 'true'}>
+            <Icon name="download" />
+            <span class="button-text"><small>{site.downloadUrl ? 'Free' : comingSoon}</small>Download for Mac</span>
+          </a>
+        </div>
+      </div>
+      <p class="hero-note" style="text-align: center; margin-top: 26px">{site.requirements} · Apple silicon and Intel</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq" style="padding-top: 40px">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Questions</span>
+        <h2>Good to know.</h2>
+      </div>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Why does LanDeck ask for Local Network access?</summary>
+          <div>
+            <p>
+              macOS asks before any app talks to the devices on your network. Without it, LanDeck can’t see them. If you
+              said Don’t Allow, LanDeck shows how to turn it on in System Settings › Privacy &amp; Security › Local Network.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Why does it ask for my location?</summary>
+          <div>
+            <p>
+              Only to show your Wi‑Fi network’s name: macOS shares it only with apps that have Location access. LanDeck
+              never uses or stores your location, and works without it; the network then goes by its address instead.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Is it safe to scan my network?</summary>
+          <div>
+            <p>
+              Yes. LanDeck only looks: it sends the same small, harmless requests your Mac makes every day (a ping, a
+              connection that’s closed at once, a question to a printer). It never signs in to a device, never changes one,
+              and never opens anything on your router.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Will it find every device?</summary>
+          <div>
+            <p>
+              Almost always. A device that’s asleep or switched off can’t answer; LanDeck then shows it as offline with when it
+              was last seen. Some guest networks keep devices from seeing each other, and nothing on the Mac can get past that.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>What’s the difference between the two editions?</summary>
+          <div>
+            <p>
+              The Mac App Store edition is sandboxed and is the only one with LanDeck Pro. The direct download has every free
+              feature. Both scan the same way and keep your data on your Mac.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Does LanDeck work on networks other than mine?</summary>
+          <div>
+            <p>
+              It scans whatever network your Mac is on. Only scan networks you own or look after, or where you have permission.
+            </p>
+          </div>
+        </details>
+      </div>
+      <p class="hero-note" style="text-align: center; margin-top: 28px">
+        More answers on the <a href={url('support/')}>support page</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Final call -->
+  <section class="final">
+    <div class="container" data-reveal>
+      <img class="app-mark" src={url('favicon.svg')} alt="" width="96" height="96" />
+      <h2>See your network <span class="gradient-text">clearly.</span></h2>
+      <p>LanDeck is coming soon to the Mac App Store and as a direct download.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={site.appStoreUrl ?? '#download'} aria-disabled={site.appStoreUrl ? undefined : 'true'}>
+          <Icon name="bag" />
+          <span class="button-text"><small>{site.appStoreUrl ? 'Download on the' : comingSoon}</small>Mac App Store</span>
+        </a>
+        <a class="button" href={site.supportUrl}>Ask a question</a>
+      </div>
+    </div>
+  </section>
+</Base>

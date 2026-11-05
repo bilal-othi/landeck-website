@@ -1,0 +1,135 @@
+---
+import Prose from '../layouts/Prose.astro';
+import { site, url } from '../site';
+---
+
+<Prose title="Support" description="Answers to common questions about LanDeck, and how to get help.">
+  <p class="intro">Answers to the questions people ask most. Can’t find yours? <a href={site.supportUrl}>Ask on GitHub</a>.</p>
+
+  <div class="faq">
+    <details>
+      <summary>LanDeck says Local Network access is off. How do I turn it on?</summary>
+      <div>
+        <p>
+          Open System Settings › Privacy &amp; Security › Local Network and switch LanDeck on. LanDeck has a button that
+          opens that page. Come back to LanDeck and it scans again by itself.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why doesn’t it show my Wi‑Fi network’s name?</summary>
+      <div>
+        <p>
+          macOS only shares the Wi‑Fi name with apps that have Location access. Allow it when LanDeck asks, or in System
+          Settings › Privacy &amp; Security › Location Services. LanDeck never uses your location. Without it, the network
+          goes by its address, such as 192.168.1.0/24, and you can give it any name you like.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>A device is missing from the list.</summary>
+      <div>
+        <ul>
+          <li>It may be asleep. Phones and some smart-home devices drop off the network to save power; wake it and scan again.</li>
+          <li>It may be on another network: a guest Wi‑Fi, or a second router. LanDeck sees the network your Mac is on.</li>
+          <li>Some routers and mesh systems keep wireless devices from seeing each other (often called “client isolation” or “AP isolation”).</li>
+          <li>On a large network, LanDeck first sweeps the 254 addresses around your Mac. Choose Scan All in the banner to sweep the whole network.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why is a phone shown as a new device again?</summary>
+      <div>
+        <p>
+          iPhones and Android phones use a private Wi‑Fi address that can change, which looks like a new device. LanDeck
+          recognises the phone when its name is distinctive, such as “Sara’s iPhone”. You can also switch the phone’s
+          Private Wi‑Fi Address to Fixed for your own network in its Wi‑Fi settings.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I get alerts when a new device joins?</summary>
+      <div>
+        <p>
+          That’s part of LanDeck Pro. Turn on Settings › Monitoring › Scan in the background, and allow notifications when
+          macOS asks. LanDeck needs to be open, in its window or the menu bar; turn on Open LanDeck at login in Settings ›
+          General to keep it running.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Wake-on-LAN doesn’t wake my computer.</summary>
+      <div>
+        <p>
+          The computer has to allow it: on a Mac, it’s “Wake for network access” in System Settings › Energy (or Battery);
+          on a PC, in the network adapter’s settings and often in the BIOS. Most computers can only be woken over Ethernet,
+          not Wi‑Fi.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What does a security finding mean, and what should I do?</summary>
+      <div>
+        <p>
+          Each finding in Security explains the risk and what to do about it. Findings are grouped as Fix soon, Worth a look
+          and Good to know. When you’ve dealt with one, the next scan no longer shows it.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Security says the router’s hardware address changed.</summary>
+      <div>
+        <p>
+          If you or your provider replaced the router, choose This Is My New Router, and LanDeck knows it from then on. If
+          not, restart the router and check for devices you don’t know: another device pretending to be the router is how
+          someone listens in on a network.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where does LanDeck keep its data?</summary>
+      <div>
+        <p>On your Mac only:</p>
+        <ul>
+          <li>Mac App Store: <code>~/Library/Containers/net.othi.landeck/Data/Library/Application Support/LanDeck/</code></li>
+          <li>Direct download: <code>~/Library/Application Support/LanDeck/</code></li>
+        </ul>
+        <p><code>library.json</code> has your devices and changes; <code>history.sqlite</code> has the history (LanDeck Pro).</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I cancel LanDeck Pro?</summary>
+      <div>
+        <p>
+          In the App Store, click your name, then Account Settings › Subscriptions › Manage. Or open LanDeck › Settings ›
+          LanDeck Pro › Manage Subscription. Pro stays on until the end of the period you paid for.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is my data private?</summary>
+      <div>
+        <p>
+          Yes. Nothing about your network leaves your Mac, and LanDeck has no analytics or account. The
+          <a href={url('privacy/')}>privacy policy</a> has the details.
+        </p>
+      </div>
+    </details>
+  </div>
+
+  <h2>Still stuck?</h2>
+  <p>
+    Open an issue on <a href={site.supportUrl}>GitHub</a> with your macOS version, the LanDeck version (LanDeck › About
+    LanDeck) and what you see. Please leave out addresses and names you’d rather keep private.
+  </p>
+</Prose>

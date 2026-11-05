@@ -1,0 +1,34 @@
+---
+import { url } from '../site';
+
+/** A notification as macOS shows it, with LanDeck's icon: for showing what LanDeck tells you. */
+interface Props {
+  title: string;
+  body: string;
+  time?: string;
+  actions?: string[];
+  class?: string;
+}
+
+const { title, body, time = 'now', actions = [], class: className } = Astro.props;
+---
+
+<div class:list={['note', className]} role="img" aria-label={`Notification: ${title}. ${body}`}>
+  <img src={url('favicon.svg')} alt="" width="38" height="38" />
+  <div>
+    <div class="note-head">
+      <span class="note-title">{title}</span>
+      <span class="note-time">{time}</span>
+    </div>
+    <div class="note-body">{body}</div>
+    {
+      actions.length > 0 && (
+        <div class="note-actions">
+          {actions.map((action) => (
+            <span>{action}</span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</div>

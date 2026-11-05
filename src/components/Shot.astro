@@ -1,0 +1,63 @@
+---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * A screenshot of LanDeck in dark and light appearance, converted to WebP. The page shows one of them (the switch
+ * above the tour picks which). The PNGs come from the app repository: `--sample --pro --screenshots <folder>` in a
+ * Debug build renders them from the made-up sample network.
+ */
+interface Props {
+  /** File name without "-light.png" / "-dark.png" */
+  name: string;
+  alt: string;
+  class?: string;
+  /** The hero image loads at once; the rest when scrolled to. */
+  eager?: boolean;
+}
+
+const { name, alt, class: className, eager = false } = Astro.props;
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/screenshots/*.png', { eager: true });
+
+function file(appearance: 'light' | 'dark'): ImageMetadata {
+  const found = files[`../assets/screenshots/${name}-${appearance}.png`];
+  if (!found) throw new Error(`Missing screenshot ${name}-${appearance}.png`);
+  return found.default;
+}
+
+const dark = file('dark');
+const light = file('light');
+const widths = [Math.min(640, dark.width), dark.width];
+const sizes = `(max-width: 920px) calc(100vw - 32px), ${dark.width}px`;
+const [darkImage, lightImage] = await Promise.all(
+  [dark, light].map((src) => getImage({ src, widths, format: 'webp', quality: 86 })),
+);
+const loading = eager ? 'eager' : 'lazy';
+---
+
+<div class:list={['shot', className]}>
+  <img
+    class="shot-dark"
+    src={darkImage.src}
+    srcset={darkImage.srcSet.attribute}
+    sizes={sizes}
+    width={dark.width}
+    height={dark.height}
+    alt={alt}
+    loading={loading}
+    decoding="async"
+    fetchpriority={eager ? 'high' : undefined}
+  />
+  <img
+    class="shot-light"
+    src={lightImage.src}
+    srcset={lightImage.srcSet.attribute}
+    sizes={sizes}
+    width={light.width}
+    height={light.height}
+    alt={alt}
+    loading="lazy"
+    decoding="async"
+  />
+  <slot />
+</div>

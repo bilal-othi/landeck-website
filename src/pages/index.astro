@@ -39,6 +39,61 @@ const kinds = [
 ] as const;
 
 const comingSoon = 'Coming soon';
+
+// Free and Pro, feature by feature. `free`: true, false, or a few words when it's partly there.
+type Row = { feature: string; detail?: string; free: boolean | string };
+const comparison: { group: string; rows: Row[] }[] = [
+  {
+    group: 'Discovery',
+    rows: [
+      { feature: 'Scans with eight methods', detail: 'Address sweep and ARP, ping, Bonjour, UPnP, NetBIOS, SNMP, reverse DNS, IPv6', free: true },
+      { feature: 'Scans at launch and on a new network', detail: 'And whenever you ask', free: true },
+      { feature: 'Scan All for large networks', detail: 'Up to 65,534 addresses', free: true },
+      { feature: 'New devices marked', detail: 'In the list and next to the menu bar icon', free: true },
+      { feature: 'Background scans', detail: 'Every 1 to 15 minutes; half as often on battery', free: false },
+    ],
+  },
+  {
+    group: 'Devices',
+    rows: [
+      { feature: 'Every detail', detail: 'Addresses, MAC, maker, model, type, host names, services, open ports, latency', free: true },
+      { feature: 'Your names, types, notes, tags and favourites', free: true },
+      { feature: 'Mark as known, Copy Details, Copy MAC Address', free: true },
+      { feature: 'List and Cards views', detail: 'Search, sort, filter, group by type or tag', free: true },
+      { feature: 'Timeline view', detail: 'Who was online when, over a day, a week or a month', free: false },
+      { feature: 'Every network remembered', detail: 'Your names come back when you do', free: true },
+      { feature: 'Network profiles', detail: 'Look at the other networks you use, rename or forget them', free: false },
+    ],
+  },
+  {
+    group: 'Actions and tools',
+    rows: [
+      { feature: 'Open web page, SSH, Screen Sharing, shared files', free: true },
+      { feature: 'Wake-on-LAN', free: true },
+      { feature: 'Ping, Traceroute, DNS Lookup, Port Scan', free: true },
+      { feature: 'Connection details and public address', free: true },
+      { feature: 'Menu bar item', detail: 'New devices, favourites, Scan Now', free: true },
+    ],
+  },
+  {
+    group: 'Alerts and history',
+    rows: [
+      { feature: 'New-device notifications', detail: 'With Mark as Known and Name It…', free: false },
+      { feature: 'Watchlist', detail: 'Alerts when a device goes offline or comes back', free: false },
+      { feature: 'History of every device', detail: 'Presence and latency, kept 30, 60 or 90 days', free: false },
+      { feature: 'Changes', detail: 'New and gone devices, new addresses, new open ports', free: false },
+      { feature: 'Weekly summary', detail: 'A Monday notification and the This Week report', free: false },
+    ],
+  },
+  {
+    group: 'Security',
+    rows: [
+      { feature: 'Security issues on a device', free: 'How many' },
+      { feature: 'Security check', detail: 'Risky services, ports open to the internet, router impostors, address conflicts, certificates, each explained', free: false },
+      { feature: 'Security alerts', detail: 'A new port to the internet, a changed or impersonated router', free: false },
+    ],
+  },
+];
 ---
 
 <Base>
@@ -572,6 +627,60 @@ const comingSoon = 'Coming soon';
           </ul>
         </div>
       </div>
+      <div class="compare-wrap" data-reveal>
+        <h3 class="compare-title">Free and Pro, feature by feature</h3>
+        <table class="compare">
+          <thead>
+            <tr>
+              <th scope="col"><span class="visually-hidden">Feature</span></th>
+              <th scope="col">Free</th>
+              <th scope="col" class="pro-col">Pro</th>
+            </tr>
+          </thead>
+          {
+            comparison.map(({ group, rows }) => (
+              <tbody>
+                <tr class="compare-group">
+                  <th scope="rowgroup" colspan="3">{group}</th>
+                </tr>
+                {rows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      <span class="compare-feature">{row.feature}</span>
+                      {row.detail && <span class="compare-detail">{row.detail}</span>}
+                    </th>
+                    <td>
+                      {row.free === true ? (
+                        <span class="yes" role="img" aria-label="Included" />
+                      ) : row.free === false ? (
+                        <span class="no" role="img" aria-label="Not included" />
+                      ) : (
+                        <span class="partly">{row.free}</span>
+                      )}
+                    </td>
+                    <td class="pro-col">
+                      <span class="yes pro" role="img" aria-label="Included" />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            ))
+          }
+          <tfoot>
+            <tr>
+              <th scope="row">Price</th>
+              <td>Free</td>
+              <td class="pro-col">{site.proPrice ?? 'At launch'}</td>
+            </tr>
+            <tr>
+              <th scope="row">Edition</th>
+              <td>Both</td>
+              <td class="pro-col">Mac App Store</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
       <div class="editions">
         <div class="edition" data-reveal>
           <h3>Mac App Store</h3>

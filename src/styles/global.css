@@ -1541,6 +1541,189 @@ html[data-shots='light'] .shot-light {
   }
 }
 
+/* ---------- Free and Pro comparison ---------- */
+
+.compare-wrap {
+  max-width: 960px;
+  margin: 60px auto 0;
+  padding: 10px 28px 18px;
+  border-radius: 26px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+}
+
+.compare-title {
+  padding: 22px 0 6px;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15.5px;
+}
+
+.compare th,
+.compare td {
+  padding: 13px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.compare thead th {
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  padding-top: 16px;
+  padding-bottom: 14px;
+  background: var(--bg-raised);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+.compare thead th.pro-col {
+  color: #f0abfc;
+}
+
+.compare tbody th {
+  text-align: left;
+  font-weight: 500;
+}
+
+.compare td {
+  width: 124px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.compare td.pro-col {
+  background: rgba(168, 85, 247, 0.06);
+}
+
+.compare-feature {
+  display: block;
+  color: var(--text);
+}
+
+.compare-detail {
+  display: block;
+  margin-top: 2px;
+  font-size: 13.5px;
+  color: var(--faint);
+  line-height: 1.45;
+}
+
+.compare-group th {
+  padding-top: 28px;
+  padding-bottom: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan) !important;
+  text-align: left;
+}
+
+.compare tbody tr:not(.compare-group):hover th,
+.compare tbody tr:not(.compare-group):hover td {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.compare .yes,
+.compare .no {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.compare .yes {
+  background: var(--gradient);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='12'/%3E%3C/svg%3E") center / contain no-repeat;
+  position: relative;
+}
+
+.compare .yes::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.compare .yes.pro {
+  background: linear-gradient(120deg, var(--violet), var(--pink));
+}
+
+.compare .no {
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--faint);
+  opacity: 0.6;
+}
+
+.compare .partly {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.compare tfoot th,
+.compare tfoot td {
+  border-bottom: none;
+  padding-top: 16px;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.compare tfoot th {
+  text-align: left;
+}
+
+.compare tfoot td {
+  font-size: 14px;
+}
+
+.compare tfoot tr:first-child th,
+.compare tfoot tr:first-child td {
+  border-top: 1px solid var(--border-strong);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .compare-wrap {
+    padding: 4px 12px 12px;
+  }
+  .compare td {
+    width: 64px;
+  }
+  .compare th,
+  .compare td {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .compare thead th {
+    top: 64px;
+  }
+}
+
 /* ---------- Editions ---------- */
 
 .editions {

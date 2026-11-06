@@ -14,9 +14,25 @@ import { site } from '../site';
     <li>
       <strong>It looks, and only looks.</strong> To find the devices on the network your Mac is connected to, LanDeck sends
       small requests to them: it pings them, reads the Mac’s own address table, listens for Bonjour and UPnP announcements,
-      asks for names (reverse DNS, NetBIOS, SNMP), checks whether common ports are open by connecting and closing at once,
-      and reads the certificate of a device’s secure web page without trusting it or sending anything. It never signs in to
-      a device, never changes one and never opens a port on your router.
+      asks for names (NetBIOS, SNMP, and reverse DNS), checks whether common ports are open by connecting and closing at
+      once, and reads the certificate of a device’s secure web page without trusting it or sending anything. It never signs
+      in to a device, never changes a device’s settings and never opens a port on your router.
+    </li>
+    <li>
+      <strong>Names stay on your network.</strong> LanDeck asks for devices’ names by reverse DNS only from a DNS server on
+      your network: your Mac’s own DNS server when that’s your router or another device on your network, and otherwise
+      your router itself. If your Mac uses a DNS server on the internet (such as <code>1.1.1.1</code>, <code>8.8.8.8</code>
+      or a VPN’s), the addresses on your network aren’t sent to it.
+    </li>
+    <li>
+      <strong>Printers.</strong> When you look at a printer, LanDeck asks it for its status and ink or toner levels, as
+      your Mac’s print dialog does.
+    </li>
+    <li>
+      <strong>Commands you give.</strong> Wake-on-LAN sends a wake-up packet to the device you choose, when you click Wake
+      or at the times you schedule (LanDeck Pro). Media control (LanDeck Pro) reads what a TV, speaker or media box is
+      playing while you look at it, and sends play, pause, volume and the like only when you click them. LanDeck sends no
+      other commands to your devices.
     </li>
     <li>
       <strong>Router port forwards.</strong> If your router lets apps open ports to the internet (UPnP), LanDeck asks the
@@ -53,6 +69,18 @@ import { site } from '../site';
       <strong>Guest Wi‑Fi code (LanDeck Pro).</strong> If you make a QR code for your guest Wi‑Fi, the network name and
       password you type are kept on your Mac: the password in your Keychain. LanDeck never reads Wi‑Fi passwords from
       macOS.
+    </li>
+    <li>
+      <strong>Networks.</strong> Each network you’ve scanned (its name, its router and its devices) is kept on your Mac
+      until you forget it.
+    </li>
+    <li>
+      <strong>Measurements.</strong> Connection quality results, the Wi‑Fi signal at the places you measure (with the place
+      names you type), and your scheduled wake-ups (LanDeck Pro) are kept on your Mac.
+    </li>
+    <li>
+      <strong>Widgets.</strong> LanDeck’s widgets and Control Center buttons show a summary (how many devices are online,
+      new devices, the internet’s state) that LanDeck keeps in a folder shared only with its own widgets, on your Mac.
     </li>
     <li>
       <strong>Settings</strong> are kept in LanDeck’s preferences on your Mac.
@@ -110,10 +138,15 @@ import { site } from '../site';
   <ul>
     <li><strong>Local Network:</strong> to find and talk to the devices on your network.</li>
     <li>
-      <strong>Location (optional):</strong> macOS only shares your Wi‑Fi network’s name with apps that have Location
-      access. LanDeck uses it only to show that name. It never reads, stores or sends your location.
+      <strong>Location (optional):</strong> macOS only shares Wi‑Fi network names with apps that have Location access.
+      LanDeck uses it only to show your Wi‑Fi network’s name, and the names of the networks nearby in Nearby Wi‑Fi
+      (LanDeck Pro). It never reads, stores or sends your location.
     </li>
     <li><strong>Notifications (optional):</strong> for LanDeck Pro’s alerts and weekly summary.</li>
+    <li>
+      <strong>Siri and Shortcuts (LanDeck Pro):</strong> LanDeck’s actions run on your Mac. When you use Siri, Apple
+      handles what you say, under Apple’s privacy policy; LanDeck only gets the action to run.
+    </li>
   </ul>
 
   <h2>No tracking</h2>

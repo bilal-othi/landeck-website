@@ -73,6 +73,21 @@ const comparison: { group: string; rows: Row[] }[] = [
       { feature: 'Ping, Traceroute, DNS Lookup, Port Scan', free: true },
       { feature: 'Connection details and public address', free: true },
       { feature: 'Menu bar item', detail: 'New devices, favourites, Scan Now', free: true },
+      { feature: 'Printer status', detail: 'Ready, paper jams, ink and toner levels', free: true },
+      { feature: 'Scheduled wake', detail: 'Wake a computer or NAS at the times you set', free: false },
+      { feature: 'Media control', detail: 'Play, pause and volume for DLNA TVs and speakers, and Roku', free: false },
+      { feature: 'Siri, Shortcuts and widgets', detail: 'And Control Center buttons', free: false },
+    ],
+  },
+  {
+    group: 'Internet and Wi‑Fi',
+    rows: [
+      { feature: 'Internet check', detail: 'Is it working, and is the problem the Wi‑Fi, the router, DNS or the line', free: true },
+      { feature: 'Speed test', detail: 'With macOS’s own networkQuality', free: true },
+      { feature: 'Wi‑Fi signal and coverage', detail: 'Signal in the toolbar; measure it room by room', free: true },
+      { feature: 'Internet outage log', detail: 'Every outage: when, for how long and why', free: false },
+      { feature: 'Connection quality', detail: 'Every device rated by how steadily it answers, worst first', free: false },
+      { feature: 'Nearby Wi‑Fi', detail: 'The networks around you and the best channel', free: false },
     ],
   },
   {
@@ -83,6 +98,9 @@ const comparison: { group: string; rows: Row[] }[] = [
       { feature: 'History of every device', detail: 'Presence and latency, kept 30, 60 or 90 days', free: false },
       { feature: 'Changes', detail: 'New and gone devices, new addresses, new open ports', free: false },
       { feature: 'Weekly summary', detail: 'A Monday notification and the This Week report', free: false },
+      { feature: 'Quiet hours', detail: 'No alerts while you sleep', free: false },
+      { feature: 'Who’s home', detail: 'From family members’ phones', free: false },
+      { feature: 'Guest mode', detail: 'No alerts for visitors’ devices, and a Wi‑Fi QR code', free: false },
     ],
   },
   {
@@ -611,6 +629,8 @@ const comparison: { group: string; rows: Row[] }[] = [
             <li><strong>Every device detail,</strong> your names, notes and tags</li>
             <li><strong>Quick actions</strong> and Wake-on-LAN</li>
             <li><strong>Ping, Traceroute, DNS Lookup, Port Scan</strong> and Connection</li>
+            <li><strong>Internet check, speed test</strong> and Wi‑Fi coverage</li>
+            <li><strong>Printer status</strong> with ink and toner levels</li>
             <li><strong>The menu bar item</strong> with new devices and favourites</li>
           </ul>
         </div>
@@ -624,6 +644,8 @@ const comparison: { group: string; rows: Row[] }[] = [
             <li><strong>History,</strong> Changes and the Timeline view</li>
             <li><strong>Network profiles</strong> for every network you use</li>
             <li><strong>Security check</strong> with alerts, and the weekly summary</li>
+            <li><strong>Outage log,</strong> who’s home, guest mode and connection quality</li>
+            <li><strong>Scheduled wake, media control,</strong> Siri, Shortcuts and widgets</li>
           </ul>
         </div>
       </div>

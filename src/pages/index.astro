@@ -773,7 +773,7 @@ const comparison: { group: string; rows: Row[] }[] = [
     </div>
   </section>
 
-  <!-- Plans and editions -->
+  <!-- Plans -->
   <section class="section" id="download">
     <div class="container">
       <div class="section-head" data-reveal>
@@ -855,34 +855,17 @@ const comparison: { group: string; rows: Row[] }[] = [
               <td>Free</td>
               <td class="pro-col">{site.proPrice ?? 'At launch'}</td>
             </tr>
-            <tr>
-              <th scope="row">Edition</th>
-              <td>Both</td>
-              <td class="pro-col">Mac App Store</td>
-            </tr>
           </tfoot>
         </table>
       </div>
 
-      <div class="editions">
-        <div class="edition" data-reveal>
-          <h3>Mac App Store</h3>
-          <p>Sandboxed by Apple, updated by the App Store, and the only edition with LanDeck Pro.</p>
-          <a class="button button-primary" href={site.appStoreUrl ?? '#download'} aria-disabled={site.appStoreUrl ? undefined : 'true'}>
-            <Icon name="bag" />
-            <span class="button-text"><small>{site.appStoreUrl ? 'Download on the' : comingSoon}</small>Mac App Store</span>
-          </a>
-        </div>
-        <div class="edition" data-reveal style="--delay: .08s">
-          <h3>Direct download</h3>
-          <p>A notarized download from this website with every free feature. LanDeck Pro comes with the App Store edition.</p>
-          <a class="button" href={site.downloadUrl ?? '#download'} aria-disabled={site.downloadUrl ? undefined : 'true'}>
-            <Icon name="download" />
-            <span class="button-text"><small>{site.downloadUrl ? 'Free' : comingSoon}</small>Download for Mac</span>
-          </a>
-        </div>
+      <div class="get-app" data-reveal>
+        <a class="button button-primary" href={site.appStoreUrl ?? '#download'} aria-disabled={site.appStoreUrl ? undefined : 'true'}>
+          <Icon name="bag" />
+          <span class="button-text"><small>{site.appStoreUrl ? 'Download on the' : comingSoon}</small>Mac App Store</span>
+        </a>
       </div>
-      <p class="hero-note" style="text-align: center; margin-top: 26px">{site.requirements} · Apple silicon and Intel</p>
+      <p class="hero-note" style="text-align: center; margin-top: 18px">{site.requirements} · Apple silicon and Intel</p>
     </div>
   </section>
 
@@ -934,15 +917,6 @@ const comparison: { group: string; rows: Row[] }[] = [
           </div>
         </details>
         <details>
-          <summary>What’s the difference between the two editions?</summary>
-          <div>
-            <p>
-              The Mac App Store edition is sandboxed and is the only one with LanDeck Pro. The direct download has every free
-              feature. Both scan the same way and keep your data on your Mac.
-            </p>
-          </div>
-        </details>
-        <details>
           <summary>Does LanDeck work on networks other than mine?</summary>
           <div>
             <p>
@@ -962,7 +936,7 @@ const comparison: { group: string; rows: Row[] }[] = [
     <div class="container" data-reveal>
       <img class="app-mark" src={url('favicon.svg')} alt="" width="96" height="96" />
       <h2>See your network <span class="gradient-text">clearly.</span></h2>
-      <p>LanDeck is coming soon to the Mac App Store and as a direct download.</p>
+      <p>LanDeck is coming soon to the Mac App Store.</p>
       <div class="hero-actions">
         <a class="button button-primary" href={site.appStoreUrl ?? '#download'} aria-disabled={site.appStoreUrl ? undefined : 'true'}>
           <Icon name="bag" />

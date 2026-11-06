@@ -1770,6 +1770,11 @@ html[data-shots='light'] .shot-light {
   gap: 16px;
 }
 
+/* Pro's smaller features, after the tour of the big ones. */
+.pro-more {
+  margin-top: 110px;
+}
+
 @media (max-width: 920px) {
   .privacy-grid {
     grid-template-columns: repeat(2, 1fr);

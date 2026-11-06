@@ -267,7 +267,10 @@ const comparison: { group: string; rows: Row[] }[] = [
       <div class="section-head" data-reveal>
         <span class="kicker">The tour</span>
         <h2>Everything about every device. Free.</h2>
-        <p>Scanning, every detail, names and notes, quick actions, Wake-on-LAN and the network tools are free, for good.</p>
+        <p>
+          Scanning, every detail, names and notes, quick actions, Wake-on-LAN, the network tools, the internet check, the
+          speed test, Wi‑Fi coverage and printer status are free, for good.
+        </p>
       </div>
       <div class="switch-row" data-reveal>
         <span>Screenshots in</span>
@@ -365,6 +368,73 @@ const comparison: { group: string; rows: Row[] }[] = [
         </div>
       </div>
 
+      <!-- Internet -->
+      <div class="feature wide" id="internet" data-tabs="6000">
+        <div class="feature-copy" data-reveal>
+          <span class="feature-tag"><Icon name="globe" class="icon-16" /> Internet</span>
+          <h3>Is it the Wi‑Fi, the router or the internet?</h3>
+          <p>
+            When things are slow or down, LanDeck checks every step from your Mac to the internet (the Wi‑Fi, the router,
+            DNS and the line) and says in plain words where the problem is and what to try. Then test your speed with
+            macOS’s own tool: download, upload and how well calls hold up while the line is busy.
+          </p>
+          <div class="tabs" role="tablist" aria-label="Internet" style="margin-top: 28px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Internet check</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Speed test</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Outage log · Pro</button>
+          </div>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="internet" alt="Internet: your internet is working, with the Mac, Wi‑Fi, router, DNS and internet each checked" /></div>
+          <div class="tab-panel"><Shot name="speed" alt="A speed test running: 245 Mbps down so far, and high responsiveness" /></div>
+          <div class="tab-panel"><Shot name="outages" alt="The outage log: 99.3% up over 7 days, with each outage, how long it lasted and why" /></div>
+        </div>
+      </div>
+
+      <!-- Wi-Fi -->
+      <div class="feature flip" data-tabs="6000">
+        <div class="feature-copy" data-reveal="right">
+          <span class="feature-tag"><Icon name="wifi" class="icon-16" /> Wi‑Fi</span>
+          <h3>Find the weak spots in your Wi‑Fi.</h3>
+          <p>
+            The signal is always in the toolbar, with what it means for calls and streaming. Carry your Mac from room to
+            room and LanDeck measures each place, so you can see where the Wi‑Fi gives out and where a mesh point would
+            help.
+          </p>
+          <div class="tabs" role="tablist" aria-label="Wi‑Fi" style="margin-top: 24px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Coverage</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Nearby Wi‑Fi · Pro</button>
+          </div>
+          <ul class="feature-list">
+            <li><strong>Room by room:</strong> the signal, noise and speed in each place you measure, weakest first.</li>
+            <li><strong>Nearby Wi‑Fi (Pro):</strong> the networks around you, how crowded each channel is, and the best channel for your router.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="coverage" alt="Wi‑Fi Coverage: the signal measured in each room of the house, the garden weak" /></div>
+          <div class="tab-panel"><Shot name="nearby" alt="Nearby Wi‑Fi: the networks around, the channels they use, and the best channel" /></div>
+        </div>
+      </div>
+
+      <!-- Printers -->
+      <div class="feature">
+        <div class="feature-copy" data-reveal="left">
+          <span class="feature-tag"><Icon name="printer" class="icon-16" /> Printers</span>
+          <h3>Out of toner? Know before you print.</h3>
+          <p>
+            LanDeck asks your printers how they are: ready or printing, a paper jam, an empty tray, an open cover, and how
+            much ink or toner is left in each colour.
+          </p>
+          <ul class="feature-list">
+            <li><strong>In the menu bar too:</strong> a printer that needs you shows there, such as “Paper is low”.</li>
+            <li><strong>Any network printer</strong> that speaks IPP or SNMP, as nearly all do. Nothing to install.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="printer" alt="The office printer: low on toner, with each cartridge's level" />
+        </div>
+      </div>
+
       <!-- Menu bar -->
       <div class="feature flip">
         <div class="feature-copy" data-reveal="right">
@@ -377,6 +447,7 @@ const comparison: { group: string; rows: Row[] }[] = [
           <ul class="feature-list">
             <li><strong>New devices</strong> with a Known button, so you approve them in a second.</li>
             <li><strong>Your watchlist and favourites</strong> with their latency, and Wake for those that sleep.</li>
+            <li><strong>The internet,</strong> who’s home, printers that need you, and guest mode, at a glance.</li>
             <li><strong>Scan Now</strong> from anywhere, and the new-device count next to the icon.</li>
           </ul>
         </div>
@@ -401,8 +472,9 @@ const comparison: { group: string; rows: Row[] }[] = [
         <span class="pro-badge"><Icon name="sparkles" class="icon-16" /> LanDeck Pro</span>
         <h2 style="margin-top: 22px">It keeps watch, so you don’t have to.</h2>
         <p>
-          Pro scans in the background, tells you when something changes, remembers every network and its history, and
-          checks your network for security problems.
+          Pro scans in the background, tells you when something changes, remembers every network and its history,
+          checks your network for security problems, knows who’s home, and puts your TVs, speakers and sleeping
+          computers a click away.
         </p>
       </div>
 
@@ -570,6 +642,95 @@ const comparison: { group: string; rows: Row[] }[] = [
         </div>
         <div class="shot-wrap" data-reveal="zoom">
           <Shot name="summary" alt="This Week: one new device, three to fix soon, and the watched devices that were offline" />
+        </div>
+      </div>
+
+      <!-- Who's home and guests -->
+      <div class="feature" data-tabs="6000">
+        <div class="feature-copy" data-reveal="left">
+          <span class="feature-tag pro"><Icon name="person" class="icon-16" /> Who’s home</span>
+          <h3>Who’s home, and who’s just visiting.</h3>
+          <p>
+            Say whose phone is whose, and LanDeck shows who’s home and when each person came and went, from the phones on
+            your network. When visitors come, guest mode keeps their devices out of your alerts.
+          </p>
+          <div class="tabs" role="tablist" aria-label="People" style="margin-top: 24px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Who’s home</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Guests</button>
+          </div>
+          <ul class="feature-list">
+            <li><strong>No false “left home”:</strong> phones skip scans to save power, so someone is away only after 20 minutes without any of their devices.</li>
+            <li><strong>Guest mode</strong> for 2 hours, 6 hours or until tomorrow morning. Guests are forgotten a day after they leave.</li>
+            <li><strong>A Wi‑Fi code</strong> visitors scan with their phone’s camera to join your guest Wi‑Fi.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="people" alt="Who's home: Sara is home since 18:41, Omar is away, with today's comings and goings" /></div>
+          <div class="tab-panel"><Shot name="guests" alt="Guests: guest mode on until tomorrow at 8:00, with a visitor's Xbox and iPad" /></div>
+        </div>
+      </div>
+
+      <!-- Connection quality -->
+      <div class="feature flip">
+        <div class="feature-copy" data-reveal="right">
+          <span class="feature-tag pro"><Icon name="pulse" class="icon-16" /> Connection quality</span>
+          <h3>Which devices are on weak Wi‑Fi?</h3>
+          <p>
+            Your Mac can’t see another device’s Wi‑Fi signal, but weak Wi‑Fi shows anyway: slow, uneven and lost answers.
+            LanDeck checks every device at once and rates each one, worst first, with what to try.
+          </p>
+          <ul class="feature-list">
+            <li><strong>About ten seconds</strong> for the whole network, and gentle: one small packet per device each round.</li>
+            <li><strong>One device at a time is free,</strong> in its details.</li>
+          </ul>
+        </div>
+        <div class="shot-wrap" data-reveal="zoom">
+          <Shot name="quality" alt="Connection quality: every device rated from excellent to poor, the weakest first" />
+        </div>
+      </div>
+
+      <!-- Device control -->
+      <div class="feature wide" data-tabs="6000">
+        <div class="feature-copy" data-reveal>
+          <span class="feature-tag pro"><Icon name="power" class="icon-16" /> Device control</span>
+          <h3>Play, pause and wake, from your Mac.</h3>
+          <p>
+            See what a TV or speaker is playing and play, pause, skip or change the volume, on anything that supports
+            DLNA, and on Roku. Wake the NAS or a computer at the times you choose, such as weekdays at 8:30; you only hear
+            about it if it doesn’t wake.
+          </p>
+          <div class="tabs" role="tablist" aria-label="Device control" style="margin-top: 28px">
+            <button class="tab" type="button" role="tab" aria-selected="true">Media</button>
+            <button class="tab" type="button" role="tab" aria-selected="false">Scheduled wake</button>
+          </div>
+        </div>
+        <div class="shot-wrap tab-panels" data-reveal="zoom">
+          <div class="tab-panel active"><Shot name="media" alt="The living room TV playing, with its progress, play controls and volume" /></div>
+          <div class="tab-panel"><Shot name="wake" alt="The NAS set to wake every weekday at 8:30; this morning it answered after 38 seconds" /></div>
+        </div>
+      </div>
+
+      <!-- And more -->
+      <div class="privacy-grid pro-more">
+        <div class="card" data-reveal>
+          <span class="icon"><Icon name="clock" /></span>
+          <h3>Quiet hours</h3>
+          <p>At night, alerts wait silently in Notification Center. Security alerts can still ring.</p>
+        </div>
+        <div class="card" data-reveal style="--delay: .06s">
+          <span class="icon"><Icon name="sparkles" /></span>
+          <h3>Siri and Shortcuts</h3>
+          <p>“Is my internet working in LanDeck?”, “Who’s home in LanDeck?”, “Wake NAS with LanDeck”.</p>
+        </div>
+        <div class="card" data-reveal style="--delay: .12s">
+          <span class="icon"><Icon name="grid" /></span>
+          <h3>Widgets</h3>
+          <p>Your network, the watchlist and who’s home on the desktop, and buttons in Control Center.</p>
+        </div>
+        <div class="card" data-reveal style="--delay: .18s">
+          <span class="icon"><Icon name="bell" /></span>
+          <h3>Outage log</h3>
+          <p>Every internet outage, when, for how long and why, ready to send to your provider.</p>
         </div>
       </div>
     </div>
@@ -746,8 +907,9 @@ const comparison: { group: string; rows: Row[] }[] = [
           <summary>Why does it ask for my location?</summary>
           <div>
             <p>
-              Only to show your Wi‑Fi network’s name: macOS shares it only with apps that have Location access. LanDeck
-              never uses or stores your location, and works without it; the network then goes by its address instead.
+              Only to show Wi‑Fi network names: yours, and in Nearby Wi‑Fi the networks around you. macOS shares them only
+              with apps that have Location access. LanDeck never uses or stores your location, and works without it; the
+              network then goes by its address instead.
             </p>
           </div>
         </details>
@@ -756,8 +918,9 @@ const comparison: { group: string; rows: Row[] }[] = [
           <div>
             <p>
               Yes. LanDeck only looks: it sends the same small, harmless requests your Mac makes every day (a ping, a
-              connection that’s closed at once, a question to a printer). It never signs in to a device, never changes one,
-              and never opens anything on your router.
+              connection that’s closed at once, a question to a printer). It never signs in to a device, never changes its
+              settings, and never opens anything on your router. The only commands it sends are the ones you give: wake a
+              device, or play and pause a TV.
             </p>
           </div>
         </details>

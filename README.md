@@ -41,7 +41,10 @@ open -W -n build/dd/Build/Products/Debug/LanDeck.app --args --sample --pro --app
 ```
 
 Then the same with `--appearance light`. `--only menubar,settings` takes just those. The window flashes on screen
-while it runs. On a Retina screen the images come out at twice the size, which looks sharper on Retina displays.
+while it runs, and the screen must be unlocked (a locked screen gives blank images). On a Retina screen the images come
+out at twice the size; the site's are halved to match the rest (1240 x 780 for the window), for example
+`sips --resampleWidth 1240 devices-dark.png`. `media` and `wake` show the sample TV playing and the NAS's wake
+schedule; both are made up, like the rest of the sample network.
 
 ## Publishing
 

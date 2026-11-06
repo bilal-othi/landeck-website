@@ -18,9 +18,9 @@ Needs Node.js 22.12 or later.
 
 ## Where things are
 
-- `src/site.ts`: name, tagline, download and App Store links, Pro's price, support link. Set `downloadUrl` when the
-  first DMG is released, `appStoreUrl` when the app is live and `proPrice` once prices are set; the pages switch from
-  "coming soon" by themselves.
+- `src/site.ts`: name, tagline, the App Store link, Pro's price, support link. LanDeck is sold only on the Mac App
+  Store. Set `appStoreUrl` when the app is live and `proPrice` once prices are set; the pages switch from "coming soon"
+  by themselves.
 - `src/pages/`: the home page, `privacy` (App Store Connect's privacy policy URL) and `support` (its support URL).
 - `src/components/`: `Shot` (a screenshot in dark and light, as WebP), `Note` (a macOS notification), `Icon`.
 - `src/styles/global.css`: the whole look, and every animation. Visitors who ask for reduced motion get none.
@@ -50,9 +50,6 @@ schedule; both are made up, like the rest of the sample network.
 
 Every push to `main` builds and deploys the site (`.github/workflows/deploy.yml`). One-time setup: in the repository's
 Settings › Pages, set Source to **GitHub Actions**.
-
-Releases of the direct-download DMG are published as GitHub Releases of this repository, so the download link works
-while the app's source stays private.
 
 For a custom domain (such as `landeck.app`): set `site` in `astro.config.mjs` to it, remove `base`, add `public/CNAME`
 containing the domain, and set the domain in Settings › Pages. The app's links (`AppEnvironment.website`) change too.
